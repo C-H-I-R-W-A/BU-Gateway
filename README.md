@@ -291,7 +291,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 🙏 Acknowledgements
 
-Built with ❤️ by the **IT Support team at Bugema University**.
+Built with ❤️ by the **IT Support team & Intern Students[20260 at Bugema University**.
 
 Special thanks to all student contributors who are learning and growing through this project.
 
