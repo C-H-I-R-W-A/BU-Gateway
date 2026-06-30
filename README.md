@@ -21,7 +21,7 @@
 
 ## 📖 About
 
-**BU Gateway** is an open-source, cross-platform mobile and web application built for students, staff, and faculty at [Bugema University](https://bugemauniv.ac.ug/). It provides a single, beautiful entry point to all official university digital platforms — from the student portal and e-learning to payments and the library.
+**BU Gateway** is an open-source, cross-platform mobile and web application built by IT Support in collaboration with Intern Students[2026] for students, staff, and faculty at [Bugema University](https://bugemauniv.ac.ug/). It provides a single, beautiful entry point to all official university digital platforms — from the student portal and e-learning to payments and the library.
 
 This project is also a **learning experience** — built collaboratively by the IT Support team at Bugema University as a stepping stone into professional software development practices.
 
