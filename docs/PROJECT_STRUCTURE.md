@@ -5,59 +5,46 @@ This document explains the folder structure of the BU Gateway Flutter project in
 ---
 
 ## Top-Level Overview
-
-```
-BU-Gateway/
-├── .github/                    # GitHub configuration (CI, templates)
-├── android/                    # Android platform files (auto-generated)
-├── ios/                        # iOS platform files (auto-generated)
-├── web/                        # Web platform files (auto-generated)
-├── lib/                        # 📂 ALL your Flutter/Dart code lives here
-├── test/                       # Unit and widget tests
-├── docs/                       # Project documentation & assets
-├── build/                      # Build output (gitignored)
-├── pubspec.yaml                # Dependencies & project config
-├── pubspec.lock                # Locked dependency versions (commit this!)
-├── README.md
-├── CONTRIBUTING.md
-├── CODE_OF_CONDUCT.md
-└── LICENSE
-```
-
----
-
-## `lib/` — The Heart of the App
-
 ```
 lib/
-├── main.dart                   # Entry point — runs the app
-├── app.dart                    # Root MaterialApp widget, theme, routing
+├── main.dart                        # Entry point — runs the app
+├── app.dart                         # Root MaterialApp widget, theme, routing
 │
-├── constants/                  # App-wide constants (never hardcode values!)
-│   ├── colors.dart             # BU brand colours (primary, secondary, etc.)
-│   ├── links.dart              # All university URLs in one place
-│   ├── strings.dart            # All text labels & messages
-│   └── theme.dart              # ThemeData configuration
+├── constants/                       # App-wide constants (never hardcode values!)
+│   ├── colors.dart                  # BU brand colours (primary, secondary, etc.)
+│   ├── links.dart                   # Raw link data → mapped into LinkModel list
+│   ├── strings.dart                 # Text labels, nested per screen (AppStrings.home, etc.)
+│   ├── sizes.dart                   # NEW — spacing, padding, radius constants
+│   └── theme.dart                   # ThemeData configuration
 │
-├── screens/                    # Full-page views (one file per screen)
+├── models/                          # NEW — plain data classes
+│   └── link_model.dart              # NEW — { label, url, category, icon }
+│
+├── screens/                         # Full-page views (one file per screen)
 │   ├── splash/
-│   │   └── splash_screen.dart  # App launch screen with BU logo
+│   │   └── splash_screen.dart       # App launch screen with BU logo
 │   ├── home/
-│   │   └── home_screen.dart    # Main screen — name, logo, quick links
+│   │   ├── home_screen.dart         # Scaffold + state wiring only
+│   │   └── home_body.dart           # NEW — actual layout, kept out of screen file
 │   ├── links/
-│   │   └── links_screen.dart   # Categorised list of all university links
+│   │   ├── links_screen.dart        # Scaffold + state wiring only
+│   │   └── links_body.dart          # NEW — categorised list layout
 │   └── downloads/
-│       └── downloads_screen.dart # APK & IPA download page
+│       └── downloads_screen.dart    # Static APK/IPA links, no provider needed
 │
-├── widgets/                    # Reusable UI components
-│   ├── link_card.dart          # Card widget for each university link
-│   ├── category_header.dart    # Section header (e.g. "Finance", "Library")
-│   └── bu_app_bar.dart         # Shared app bar with BU branding
+├── widgets/                         # Reusable UI components
+│   ├── link_card.dart               # Accepts LinkModel?; null = skeleton state
+│   ├── category_header.dart         # Section header (e.g. "Finance", "Library")
+│   ├── bu_app_bar.dart              # Shared app bar with BU branding
+│   ├── loading_view.dart            # NEW — shared loading state widget
+│   └── error_view.dart              # NEW — shared error state widget
 │
-└── providers/                  # Riverpod state providers
-    └── links_provider.dart     # Provides list of university links
+├── providers/                       # Riverpod state providers
+│   └── links_provider.dart          # AsyncNotifierProvider<List<LinkModel>> (future-proofed for remote config)
+│
+└── utils/                           # NEW — small shared helpers
+    └── launch_url.dart              # NEW — url_launcher wrapper with error handlingvides list of university links
 ```
-
 ---
 
 ## `constants/links.dart` — URL Registry
