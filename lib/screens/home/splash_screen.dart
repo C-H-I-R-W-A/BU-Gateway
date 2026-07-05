@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -77,8 +77,8 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               'Bugema University Companion Portal',
               style: TextStyle(
-                color: Colors.white.withOpacity(
-                    0.8), // Backwards-compatible opacity configuration
+                color: Colors.white.withValues(
+                    alpha: 0.8), // Backwards-compatible opacity configuration
                 fontSize: 14,
               ),
             ),
