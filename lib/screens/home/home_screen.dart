@@ -50,11 +50,36 @@ class _HomeScreenState extends State<HomeScreen> {
         slivers: [
           // Beautiful Sliver App Bar with rich gradients and welcome hero
           SliverAppBar(
-            expandedHeight: 190.0,
+            expandedHeight: 220.0,
             floating: false,
             pinned: true,
             stretch: true,
-            backgroundColor: widget.isDark ? BUColors.cardDark : BUColors.primaryMaroon,
+            backgroundColor: widget.isDark ? BUColors.cardDark : BUColors.primaryBlue,
+            // When collapsed, display the title and a small logo
+            title: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'docs/assets/bu_logo_placeholder.png',
+                  height: 28,
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.school_rounded,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  BUStrings.appTitle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            centerTitle: true,
             actions: [
               IconButton(
                 icon: Icon(
@@ -66,41 +91,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              titlePadding: const EdgeInsets.only(bottom: 50),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Little decorative element
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: BUColors.secondaryGold,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  const Text(
-                    BUStrings.appTitle,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: BUColors.secondaryGold,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ],
-              ),
               background: Stack(
                 fit: StackFit.expand,
                 children: [
@@ -109,8 +99,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: widget.isDark
-                            ? [const Color(0xFF1A0A0E), BUColors.backgroundDark]
-                            : [BUColors.primaryMaroon, const Color(0xFF9E0B28)],
+                            ? [const Color(0xFF0F1E36), BUColors.backgroundDark]
+                            : [BUColors.primaryBlue, const Color(0xFF1565C0)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -141,18 +131,43 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  // Welcome messages in the center (fade effect on collapse)
+                  // Welcome message in the center
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 30),
+                      padding: const EdgeInsets.only(top: 40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 16),
+                          // Large logo in the header
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.1),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Image.asset(
+                              'docs/assets/bu_logo_placeholder.png',
+                              height: 54,
+                              width: 54,
+                              errorBuilder: (context, error, stackTrace) => const Icon(
+                                Icons.school_rounded,
+                                color: BUColors.primaryBlue,
+                                size: 36,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
                           Text(
                             BUStrings.welcomeMessage.toUpperCase(),
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 10,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 2,
                               color: BUColors.secondaryGold.withValues(alpha: 0.9),
@@ -162,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Text(
                             BUStrings.slogan,
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 12,
                               fontStyle: FontStyle.italic,
                               color: Colors.white70,
                             ),
@@ -208,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       prefixIcon: Icon(
                         Icons.search_rounded,
-                        color: widget.isDark ? BUColors.secondaryGold : BUColors.primaryMaroon,
+                        color: widget.isDark ? BUColors.secondaryGold : BUColors.primaryBlue,
                       ),
                       suffixIcon: _searchQuery.isNotEmpty
                           ? IconButton(

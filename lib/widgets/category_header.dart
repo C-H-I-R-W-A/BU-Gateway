@@ -18,7 +18,7 @@ class CategoryHeader extends StatelessWidget {
             width: 4,
             height: 20,
             decoration: BoxDecoration(
-              color: isDark ? BUColors.secondaryGold : BUColors.primaryMaroon,
+              color: isDark ? BUColors.secondaryGold : BUColors.primaryBlue,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -28,7 +28,7 @@ class CategoryHeader extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               letterSpacing: 0.5,
-              color: isDark ? Colors.white : BUColors.primaryMaroon,
+              color: isDark ? Colors.white : BUColors.primaryBlue,
             ),
           ),
         ],
@@ -36,3 +36,4 @@ class CategoryHeader extends StatelessWidget {
     );
   }
 }
+

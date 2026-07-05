@@ -48,7 +48,7 @@ class _LinkCardState extends State<LinkCard> with SingleTickerProviderStateMixin
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Could not open portal: ${widget.linkItem.title}'),
-            backgroundColor: BUColors.primaryMaroon,
+            backgroundColor: BUColors.primaryBlue,
           ),
         );
       }
@@ -79,14 +79,14 @@ class _LinkCardState extends State<LinkCard> with SingleTickerProviderStateMixin
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: _isHovered
-                    ? (isDark ? BUColors.secondaryGold : BUColors.primaryMaroon).withValues(alpha: 0.5)
+                    ? (isDark ? BUColors.secondaryGold : BUColors.primaryBlue).withValues(alpha: 0.5)
                     : Colors.transparent,
                 width: 1.5,
               ),
               boxShadow: [
                 BoxShadow(
                   color: _isHovered
-                      ? (isDark ? BUColors.secondaryGold : BUColors.primaryMaroon).withValues(alpha: 0.1)
+                      ? (isDark ? BUColors.secondaryGold : BUColors.primaryBlue).withValues(alpha: 0.1)
                       : Colors.black.withValues(alpha: 0.04),
                   blurRadius: _isHovered ? 12 : 8,
                   offset: const Offset(0, 4),
@@ -105,7 +105,7 @@ class _LinkCardState extends State<LinkCard> with SingleTickerProviderStateMixin
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          BUColors.primaryMaroon.withValues(alpha: 0.1),
+                          BUColors.primaryBlue.withValues(alpha: 0.1),
                           BUColors.secondaryGold.withValues(alpha: 0.15),
                         ],
                         begin: Alignment.topLeft,
@@ -153,7 +153,7 @@ class _LinkCardState extends State<LinkCard> with SingleTickerProviderStateMixin
                       size: 16,
                       color: isDark
                           ? BUColors.secondaryGold.withValues(alpha: 0.8)
-                          : BUColors.primaryMaroon.withValues(alpha: 0.6),
+                          : BUColors.primaryBlue.withValues(alpha: 0.6),
                     ),
                   ),
                 ],

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class BUColors {
   // Bugema University brand colors
-  static const Color primaryMaroon = Color(0xFF7A0019); // Maroon/Dark Red
+  static const Color primaryBlue = Color(0xFF0D47A1); // Official BU Blue
   static const Color secondaryGold = Color(0xFFFFCC00); // Gold/Yellow
+
   
   // Neutral colors
   static const Color backgroundLight = Color(0xFFF9F9F9);

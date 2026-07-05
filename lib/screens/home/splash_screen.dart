@@ -24,67 +24,58 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BUColors.primaryMaroon, // Official BU Primary Maroon
+      backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // The real university branding logo asset
-            Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Padding(
-                  padding: const EdgeInsets.all(
-                      12.0), // Adds breathing room around the logo edges
-                  child: Image.asset(
-                    'docs/assets/bu_logo_placeholder.png', // Placeholder for the actual BU logo
-                    fit: BoxFit.contain,
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Larger centered logo
+              Image.asset(
+                'docs/assets/bu_logo_placeholder.png',
+                width: 180,
+                height: 180,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                  Icons.school_rounded,
+                  size: 120,
+                  color: BUColors.primaryBlue,
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
-            // University Application Branding Labels
-            const Text(
-              'BU Gateway',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.2,
+              const SizedBox(height: 32),
+              // University Application Branding Labels
+              const Text(
+                'BU Gateway',
+                style: TextStyle(
+                  color: BUColors.primaryBlue,
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Bugema University Companion Portal',
-              style: TextStyle(
-                color: Colors.white.withValues(
-                    alpha: 0.8), // Backwards-compatible opacity configuration
-                fontSize: 14,
+              const SizedBox(height: 8),
+              const Text(
+                'Bugema University Companion Portal',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            const SizedBox(height: 48),
-            // Clean visual indicator showing backend processes are spinning up
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(BUColors.secondaryGold),
-            ),
-          ],
+              const SizedBox(height: 48),
+              // Clean loader spinning in university blue
+              const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(BUColors.primaryBlue),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
 

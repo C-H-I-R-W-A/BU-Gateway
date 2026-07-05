@@ -7,8 +7,8 @@ class BUTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: BUColors.primaryMaroon,
-        primary: BUColors.primaryMaroon,
+        seedColor: BUColors.primaryBlue,
+        primary: BUColors.primaryBlue,
         secondary: BUColors.secondaryGold,
         surface: BUColors.cardLight,
       ),
@@ -16,7 +16,7 @@ class BUTheme {
       textTheme: GoogleFonts.outfitTextTheme().copyWith(
         titleLarge: GoogleFonts.outfit(
           fontWeight: FontWeight.bold,
-          color: BUColors.primaryMaroon,
+          color: BUColors.primaryBlue,
         ),
         titleMedium: GoogleFonts.outfit(
           fontWeight: FontWeight.w600,
@@ -29,7 +29,7 @@ class BUTheme {
         ),
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: BUColors.primaryMaroon,
+        backgroundColor: BUColors.primaryBlue,
         foregroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
@@ -50,8 +50,8 @@ class BUTheme {
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         brightness: Brightness.dark,
-        seedColor: BUColors.primaryMaroon,
-        primary: BUColors.primaryMaroon,
+        seedColor: BUColors.primaryBlue,
+        primary: BUColors.primaryBlue,
         secondary: BUColors.secondaryGold,
         surface: BUColors.cardDark,
       ),
@@ -88,4 +88,5 @@ class BUTheme {
     );
   }
 }
+
 
