@@ -16,8 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         // TODO: Navigate to the Quick Links Screen once built!
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Initialization complete! Navigating to main dashboard...')),
+          const SnackBar(
+              content: Text(
+                  'Initialization complete! Navigating to main dashboard...')),
         );
+
+        // Navigate to the DashboardScreen after the delay
+        Navigator.pushReplacementNamed(context, '/dashboard');
       }
     });
   }
@@ -48,7 +53,8 @@ class _SplashScreenState extends State<SplashScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0), // Adds breathing room around the logo edges
+                  padding: const EdgeInsets.all(
+                      12.0), // Adds breathing room around the logo edges
                   child: Image.asset(
                     'docs/assets/bu_logo_placeholder.png', // Placeholder for the actual BU logo
                     fit: BoxFit.contain,
@@ -71,7 +77,8 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               'Bugema University Companion Portal',
               style: TextStyle(
-                color: Colors.white.withOpacity(0.8), // Backwards-compatible opacity configuration
+                color: Colors.white.withOpacity(
+                    0.8), // Backwards-compatible opacity configuration
                 fontSize: 14,
               ),
             ),
