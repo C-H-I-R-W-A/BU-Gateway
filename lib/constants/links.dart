@@ -99,3 +99,4 @@ const List<LinkItem> allUniversityLinks = [
     iconEmoji: '📰',
   ),
 ];
+

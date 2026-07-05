@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'constants/theme.dart';
+import 'screens/home/splash_screen.dart';
 import 'screens/home/home_screen.dart';
 
 class BuGatewayApp extends StatefulWidget {
@@ -26,10 +27,15 @@ class _BuGatewayAppState extends State<BuGatewayApp> {
       theme: BUTheme.lightTheme,
       darkTheme: BUTheme.darkTheme,
       themeMode: _isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-      home: HomeScreen(
-        onToggleTheme: _toggleTheme,
-        isDark: _isDarkTheme,
-      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/dashboard': (context) => HomeScreen(
+              onToggleTheme: _toggleTheme,
+              isDark: _isDarkTheme,
+            ),
+      },
     );
   }
 }
+
