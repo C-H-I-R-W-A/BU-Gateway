@@ -31,6 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final bool isDesktop = screenWidth > 800;
+
     // Filter links based on search query
     final filteredLinks = allUniversityLinks.where((item) {
       final query = _searchQuery.toLowerCase();
@@ -50,34 +53,19 @@ class _HomeScreenState extends State<HomeScreen> {
         slivers: [
           // Beautiful Sliver App Bar with rich gradients and welcome hero
           SliverAppBar(
-            expandedHeight: 220.0,
+            expandedHeight: isDesktop ? 140.0 : 220.0,
             floating: false,
             pinned: true,
             stretch: true,
             backgroundColor: widget.isDark ? BUColors.cardDark : BUColors.primaryBlue,
-            // When collapsed, display the title and a small logo
-            title: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'docs/assets/bu_logo_placeholder.png',
-                  height: 28,
-                  errorBuilder: (context, error, stackTrace) => const Icon(
-                    Icons.school_rounded,
-                    color: Colors.white,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                const Text(
-                  BUStrings.appTitle,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+            // Removed the logo beside the BU Gateway title at the very top
+            title: const Text(
+              BUStrings.appTitle,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.white,
+              ),
             ),
             centerTitle: true,
             actions: [
@@ -134,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Welcome message in the center
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 40),
+                      padding: EdgeInsets.only(top: isDesktop ? 10 : 40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -154,8 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: Image.asset(
                               'docs/assets/bu_logo_placeholder.png',
-                              height: 54,
-                              width: 54,
+                              height: isDesktop ? 36 : 54,
+                              width: isDesktop ? 36 : 54,
                               errorBuilder: (context, error, stackTrace) => const Icon(
                                 Icons.school_rounded,
                                 color: BUColors.primaryBlue,
@@ -164,16 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            BUStrings.welcomeMessage.toUpperCase(),
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 2,
-                              color: BUColors.secondaryGold.withValues(alpha: 0.9),
-                            ),
-                          ),
-                          const SizedBox(height: 4),
+                          // Removed the welcome to bu gateway statement text
                           const Text(
                             BUStrings.slogan,
                             style: TextStyle(
@@ -276,93 +255,155 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             )
-          else
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  // Flattened categorized layout
-                  // Let's iterate categories in order of relevance: Primary, Academic, Staff Portal, Learning, Finance, Library, Research
-                  final categoriesInOrder = [
-                    'Primary',
-                    'Academic',
-                    'Staff Portal',
-                    'Learning',
-                    'Finance',
-                    'Library',
-                    'Research',
-                  ];
-                  
-                  // Filter out categories not present in groupedLinks
-                  final activeCategories = categoriesInOrder
-                      .where((cat) => groupedLinks.containsKey(cat))
-                      .toList();
-                  
-                  // If there's any remaining category not in the standard list, add it at the end
-                  for (var cat in groupedLinks.keys) {
-                    if (!activeCategories.contains(cat)) {
-                      activeCategories.add(cat);
-                    }
-                  }
-                  
-                  // Calculate layout items: category headers and link cards
-                  final List<dynamic> layoutItems = [];
-                  for (var cat in activeCategories) {
-                    layoutItems.add(cat); // String represents category header
-                    layoutItems.addAll(groupedLinks[cat]!); // LinkItem represents card
-                  }
-                  
-                  if (index >= layoutItems.length) {
-                    // Render footer at the end of the list
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 32),
+          else if (isDesktop)
+            // Desktop Layout: Two side-by-side columns to fit on a single screen without scrolling
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.1,
+                  vertical: 16.0,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
                       child: Column(
-                        children: [
-                          Divider(indent: 32, endIndent: 32),
-                          SizedBox(height: 16),
-                          Text(
-                            BUStrings.slogan,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            BUStrings.footerCopyright,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _buildCategoryWidgets(groupedLinks, [
+                          'Primary',
+                          'Academic',
+                          'Staff Portal',
+                          'Learning'
+                        ]),
                       ),
-                    );
-                  }
-                  
-                  final item = layoutItems[index];
-                  if (item is String) {
-                    return CategoryHeader(title: item);
-                  } else if (item is LinkItem) {
-                    return LinkCard(linkItem: item);
-                  }
-                  return const SizedBox.shrink();
-                },
-                childCount: () {
-                  // Standard categories + their links + 1 for footer
-                  final Map<String, List<LinkItem>> activeGrouped = {};
-                  for (var link in filteredLinks) {
-                    activeGrouped.putIfAbsent(link.category, () => []).add(link);
-                  }
-                  int count = activeGrouped.keys.length; // Headers
-                  count += filteredLinks.length; // Cards
-                  count += 1; // Footer
-                  return count;
-                }(),
+                    ),
+                    const SizedBox(width: 24),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _buildCategoryWidgets(groupedLinks, [
+                          'Finance',
+                          'Library',
+                          'Research'
+                        ]),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          else
+            // Mobile Layout: Single column list
+            ..._buildSlivers(context, groupedLinks, screenWidth),
+            
+          // Footer
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8, bottom: 24),
+              child: Column(
+                children: [
+                  const Divider(indent: 32, endIndent: 32),
+                  const SizedBox(height: 12),
+                  const Text(
+                    BUStrings.slogan,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    BUStrings.footerCopyright,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
             ),
+          ),
         ],
       ),
     );
   }
+
+  List<Widget> _buildCategoryWidgets(
+    Map<String, List<LinkItem>> groupedLinks,
+    List<String> categories,
+  ) {
+    final List<Widget> widgets = [];
+    for (var cat in categories) {
+      final links = groupedLinks[cat];
+      if (links == null || links.isEmpty) continue;
+
+      widgets.add(CategoryHeader(title: cat));
+      widgets.add(
+        ListView.builder(
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: links.length,
+          itemBuilder: (context, index) => LinkCard(linkItem: links[index]),
+        ),
+      );
+    }
+    return widgets;
+  }
+
+  List<Widget> _buildSlivers(
+    BuildContext context,
+    Map<String, List<LinkItem>> groupedLinks,
+    double screenWidth,
+  ) {
+    final List<Widget> slivers = [];
+    
+    // Sort categories
+    final categoriesInOrder = [
+      'Primary',
+      'Academic',
+      'Staff Portal',
+      'Learning',
+      'Finance',
+      'Library',
+      'Research',
+    ];
+    
+    final activeCategories = categoriesInOrder
+        .where((cat) => groupedLinks.containsKey(cat))
+        .toList();
+    
+    for (var cat in groupedLinks.keys) {
+      if (!activeCategories.contains(cat)) {
+        activeCategories.add(cat);
+      }
+    }
+    
+    for (var cat in activeCategories) {
+      final links = groupedLinks[cat]!;
+      if (links.isEmpty) continue;
+      
+      // Category Header
+      slivers.add(
+        SliverToBoxAdapter(
+          child: CategoryHeader(title: cat),
+        ),
+      );
+      
+      // Category Links
+      slivers.add(
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => LinkCard(linkItem: links[index]),
+            childCount: links.length,
+          ),
+        ),
+      );
+    }
+    
+    return slivers;
+  }
 }
+
