@@ -1,3 +1,4 @@
+import 'package:bu_gateway/screens/home/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const DashboardScreen(), // Temporarily bypass splash screen to test
     );
   }
 }
