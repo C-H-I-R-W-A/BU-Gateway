@@ -1,0 +1,74 @@
+name: 💡 Feature Request
+description: Suggest a new feature or improvement for BU Gateway
+title: "[FEATURE] "
+labels: ["enhancement", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea? We'd love to hear it! Please fill in the details below.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🤔 Problem / Motivation
+      description: Is your feature request related to a problem? Describe it.
+      placeholder: "I'm always frustrated when I have to search for the library link..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 💡 Proposed Solution
+      description: Describe the feature you'd like to see.
+      placeholder: "Add a dedicated 'Library' section on the home screen with a prominent button..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 📱 Target Platform
+      description: Which platform(s) does this feature apply to?
+      multiple: true
+      options:
+        - Android
+        - iOS
+        - Web
+        - All platforms
+    validations:
+      required: true
+
+  - type: dropdown
+    id: audience
+    attributes:
+      label: 👥 Target Audience
+      description: Who would benefit from this feature?
+      multiple: true
+      options:
+        - Students
+        - Staff / Faculty
+        - Parents
+        - Everyone
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternatives Considered
+      description: Have you considered any alternative solutions or workarounds?
+
+  - type: textarea
+    id: mockup
+    attributes:
+      label: 🎨 Mockups / Sketches
+      description: If you have any wireframes, sketches, or design ideas, paste them here.
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📝 Additional Context
+      description: Any other information that might help us understand the request.
